@@ -22,61 +22,61 @@ import lombok.Setter;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class City {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
-    private long id;
+	@Id
+	@GeneratedValue
+	@Column(name = "id", nullable = false)
+	private long id;
 
-    @Column(name = "nombre", nullable = false)
-    private String name;
+	@Column(name = "nombre", nullable = false)
+	private String name;
 
-    @Column(name = "iata", nullable = false)
-    private String iataCode;
+	@Column(name = "iata", nullable = false)
+	private String iataCode;
 
-    @JoinColumn(name = "id_estado")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private State state;
+	@JoinColumn(name = "id_estado")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private State state;
 
-    public City(long id, String name, String iataCode, State state) {
-	this.id = id;
-	this.name = name;
-	this.iataCode = iataCode;
-	this.state = state;
-    }
+	public City(long id, String name, String iataCode, State state) {
+		this.id = id;
+		this.name = name;
+		this.iataCode = iataCode;
+		this.state = state;
+	}
 
-    public City(String name, String iataCode, State state) {
-	this.name = name;
-	this.iataCode = iataCode;
-	this.state = state;
-    }
+	public City(String name, String iataCode, State state) {
+		this.name = name;
+		this.iataCode = iataCode;
+		this.state = state;
+	}
 
-    @Override
-    public String toString() {
-	String to = "", stateString = "null";
+	@Override
+	public String toString() {
+		String to = "", stateString = "null";
 
-	if (this.state != null)
-	    stateString = this.state.toString();
+		if (this.state != null)
+			stateString = this.state.toString();
 
-	to = this.name + " (" + this.iataCode + ") - " + stateString;
+		to = this.name + " (" + this.iataCode + ") - " + stateString;
 
-	return to;
-    }
+		return to;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-	if (this == o)
-	    return true;
-	if (o == null || !(o instanceof City))
-	    return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || !(o instanceof City))
+			return false;
 
-	City city = (City) o;
-	return this.id == city.getId() && this.name.equals(city.getName()) && this.iataCode.equals(city.getIataCode())
-		&& this.state.equals(city.getState());
-    }
+		City city = (City) o;
+		return this.id == city.getId() && this.name.equals(city.getName()) && this.iataCode.equals(city.getIataCode())
+				&& this.state.equals(city.getState());
+	}
 
-    public City() {
-	super();
-	// TODO Auto-generated constructor stub
-    }
+	public City() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 }

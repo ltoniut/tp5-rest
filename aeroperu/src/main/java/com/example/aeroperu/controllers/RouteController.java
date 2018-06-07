@@ -23,67 +23,67 @@ import com.example.aeroperu.repo.RouteRepo;
 @RequestMapping(value = "/route", produces = "Application/Json")
 public class RouteController {
 
-    @Autowired
-    RouteRepo routeDAO;
+	@Autowired
+	RouteRepo routeDAO;
 
-    /* to save an port */
-    @PostMapping("/post")
-    public Route createRoute(@Valid @RequestBody Route air) {
-	return routeDAO.save(air);
-    }
-
-    /* get all port */
-    @GetMapping("/get")
-    public List<Route> getAllRoutes() {
-	return (List<Route>) routeDAO.findAll();
-    }
-
-    /* get Route by airid */
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Optional<Route>> getRouteById(@PathVariable(value = "id") Long airid) {
-
-	Optional<Route> air = routeDAO.findById(airid);
-
-	if (air == null) {
-	    return ResponseEntity.notFound().build();
-	}
-	return ResponseEntity.ok().body(air);
-
-    }
-
-    @PutMapping("/put/{id}")
-    public ResponseEntity<Route> updateRoute(@PathVariable(value = "id") Long airid,
-	    @Valid @RequestBody Route airDetails) {
-
-	Optional<Route> air = routeDAO.findById(airid);
-	if (air == null) {
-	    return ResponseEntity.notFound().build();
+	/* to save an port */
+	@PostMapping("/post")
+	public Route createRoute(@Valid @RequestBody Route air) {
+		return routeDAO.save(air);
 	}
 
-	Route port = new Route();
-	port.setId(airid);
-	port.setAirportBegin(airDetails.getAirportBegin());
-	port.setAirportEnd(airDetails.getAirportEnd());
-	port.setDistance(airDetails.getDistance());
-
-	Route updateRoute = routeDAO.save(port);
-	return ResponseEntity.ok().body(updateRoute);
-	// return ResponseEntity.badRequest().build();
-
-    }
-
-    /* Delete an Route */
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Route> deleteRoute(@PathVariable(value = "id") Long airid) {
-
-	Optional<Route> air = routeDAO.findById(airid);
-	if (air == null) {
-	    return ResponseEntity.notFound().build();
+	/* get all port */
+	@GetMapping("/get")
+	public List<Route> getAllRoutes() {
+		return (List<Route>) routeDAO.findAll();
 	}
-	routeDAO.deleteById(airid);
 
-	return ResponseEntity.ok().build();
+	/* get Route by airid */
+	@GetMapping("/get/{id}")
+	public ResponseEntity<Optional<Route>> getRouteById(@PathVariable(value = "id") Long airid) {
 
-    }
+		Optional<Route> air = routeDAO.findById(airid);
+
+		if (air == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(air);
+
+	}
+
+	@PutMapping("/put/{id}")
+	public ResponseEntity<Route> updateRoute(@PathVariable(value = "id") Long airid,
+			@Valid @RequestBody Route airDetails) {
+
+		Optional<Route> air = routeDAO.findById(airid);
+		if (air == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		Route port = new Route();
+		port.setId(airid);
+		port.setAirportBegin(airDetails.getAirportBegin());
+		port.setAirportEnd(airDetails.getAirportEnd());
+		port.setDistance(airDetails.getDistance());
+
+		Route updateRoute = routeDAO.save(port);
+		return ResponseEntity.ok().body(updateRoute);
+		// return ResponseEntity.badRequest().build();
+
+	}
+
+	/* Delete an Route */
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Route> deleteRoute(@PathVariable(value = "id") Long airid) {
+
+		Optional<Route> air = routeDAO.findById(airid);
+		if (air == null) {
+			return ResponseEntity.notFound().build();
+		}
+		routeDAO.deleteById(airid);
+
+		return ResponseEntity.ok().build();
+
+	}
 
 }

@@ -22,65 +22,62 @@ import com.example.aeroperu.repo.CabinRepo;
 @RestController
 @RequestMapping(value = "/cabin", produces = "Application/Json")
 public class CabinController {
+	@Autowired
+	CabinRepo cabinDAO;
 
-    @Autowired
-    CabinRepo cabinDAO;
-
-    /* to save a cabin */
-    @PostMapping("/post")
-    public Cabin createCabin(@Valid @RequestBody Cabin air) {
-	return cabinDAO.save(air);
-    }
-
-    /* get all cabins */
-    @GetMapping("/get")
-    public List<Cabin> getAllCabins() {
-	return (List<Cabin>) cabinDAO.findAll();
-    }
-
-    /* get Cabin by id */
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Optional<Cabin>> getCabinById(@PathVariable(value = "id") Long airid) {
-
-	Optional<Cabin> air = cabinDAO.findById(airid);
-
-	if (air == null) {
-	    return ResponseEntity.notFound().build();
-	}
-	return ResponseEntity.ok().body(air);
-
-    }
-
-    @PutMapping("/put/{id}")
-    public ResponseEntity<Cabin> updateCabin(@PathVariable(value = "id") Long airid,
-	    @Valid @RequestBody Cabin airDetails) {
-
-	Optional<Cabin> air = cabinDAO.findById(airid);
-	Cabin cabina = air.get();
-
-	if (cabina == null) {
-	    return ResponseEntity.notFound().build();
+	/* to save a cabin */
+	@PostMapping("/post")
+	public Cabin createCabin(@Valid @RequestBody Cabin air) {
+		return cabinDAO.save(air);
 	}
 
-	// Cabin port = new Cabin();
-	cabina.setName(airDetails.getName());
-
-	Cabin updateCabin = cabinDAO.save(cabina);
-	return ResponseEntity.ok().body(updateCabin);
-
-    }
-
-    /* Delete a Cabin */
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Cabin> deleteCabin(@PathVariable(value = "id") Long airid) {
-
-	Optional<Cabin> air = cabinDAO.findById(airid);
-	if (air == null) {
-	    return ResponseEntity.notFound().build();
+	/* get all cabins */
+	@GetMapping("/get")
+	public List<Cabin> getAllCabins() {
+		return (List<Cabin>) cabinDAO.findAll();
 	}
-	cabinDAO.deleteById(airid);
 
-	return ResponseEntity.ok().build();
+	/* get Cabin by id */
+	@GetMapping("/get/{id}")
+	public ResponseEntity<Optional<Cabin>> getCabinById(@PathVariable(value = "id") Long airid) {
 
-    }
+		Optional<Cabin> air = cabinDAO.findById(airid);
+
+		if (air == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(air);
+
+	}
+
+	@PutMapping("/put/{id}")
+	public ResponseEntity<Cabin> updateCabin(@PathVariable(value = "id") Long airid,
+			@Valid @RequestBody Cabin airDetails) {
+
+		Optional<Cabin> air = cabinDAO.findById(airid);
+		Cabin cabin = air.get();
+
+		if (cabin == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		// Cabin port = new Cabin();
+		cabin.setName(airDetails.getName());
+
+		Cabin updateCabin = cabinDAO.save(cabin);
+		return ResponseEntity.ok().body(updateCabin);
+	}
+
+	/* Delete a Cabin */
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Cabin> deleteCabin(@PathVariable(value = "id") Long airid) {
+
+		Optional<Cabin> air = cabinDAO.findById(airid);
+		if (air == null) {
+			return ResponseEntity.notFound().build();
+		}
+		cabinDAO.deleteById(airid);
+
+		return ResponseEntity.ok().build();
+	}
 }

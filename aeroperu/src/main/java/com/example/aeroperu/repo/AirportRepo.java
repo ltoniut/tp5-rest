@@ -7,5 +7,12 @@ import com.esq.models.Airport;
 
 @Repository
 public interface AirportRepo extends JpaRepository<Airport, Long> {
-
+	public default Airport findByIata(String str) {
+		for (Airport air : findAll()) {
+			if (air.getIataCode() == str) {
+				return air;
+			}
+		}
+		return null;
+	}
 }

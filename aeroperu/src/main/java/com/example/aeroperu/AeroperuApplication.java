@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EntityScan(basePackages = { "com.esq.models" })
 public class AeroperuApplication {
 
-    public static void main(String[] args) {
-	SpringApplication.run(AeroperuApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(AeroperuApplication.class, args);
+	}
 }
