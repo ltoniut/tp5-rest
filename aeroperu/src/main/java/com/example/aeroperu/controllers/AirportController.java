@@ -86,23 +86,23 @@ public class AirportController {
 	public ResponseEntity<Airport> updateAirport(@PathVariable(value = "iata") String iata,
 			@Valid @RequestBody AirportPOJO airDetails) {
 
-		Airport air = airportDAO.findByIata(iata);
-		if (air == null) {
+		Airport airport = airportDAO.findByIata(iata);
+		if (airport == null) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Airport port = new Airport();
-		Optional<City> city = cityDAO.findById(airDetails.getCityId());
+		Airport updatedAirport = new Airport();
+		City city = cityDAO.findByIata(airDetails.getCityIata());
 		
-		port.setIataCode(airDetails.getIataCode());
-		port.setName(airDetails.getName());
-		port.setLatitude(airDetails.getLatitude());
-		port.setLongitude(airDetails.getLongitude());
+		updatedAirport.setIataCode(airDetails.getIataCode());
+		updatedAirport.setName(airDetails.getName());
+		updatedAirport.setLatitude(airDetails.getLatitude());
+		updatedAirport.setLongitude(airDetails.getLongitude());
 		
-		if (city.isPresent())
-			port.setCity(city.get());
+		if (city != null)
+			updatedAirport.setCity(city);
 
-		Airport updateAirport = airportDAO.save(port);
+		Airport updateAirport = airportDAO.save(updatedAirport);
 		return ResponseEntity.ok().body(updateAirport);
 		// return ResponseEntity.badRequest().build();
 

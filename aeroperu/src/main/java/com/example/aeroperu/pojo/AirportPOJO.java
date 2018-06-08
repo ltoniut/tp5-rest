@@ -3,14 +3,14 @@ package com.example.aeroperu.pojo;
 public class AirportPOJO {
     private String iataCode;
     private String name;
-    private long cityId;
+    private String cityIata;
     private float latitude;
     private float longitude;
 
-    public AirportPOJO(long id, String name, String iataCode, long city, float latitude, float longitude) {
+    public AirportPOJO(long id, String name, String iataCode, String city, float latitude, float longitude) {
 		this.name = name;
 		this.iataCode = iataCode;
-		this.cityId = city;
+		this.cityIata = city;
 		this.latitude = latitude;
 		this.longitude = longitude;
     }
@@ -23,8 +23,8 @@ public class AirportPOJO {
 		return name;
 	}
 
-	public long getCityId() {
-		return cityId;
+	public String getCityIata() {
+		return cityIata;
 	}
 
 	public float getLatitude() {
